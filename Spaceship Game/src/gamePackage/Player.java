@@ -11,8 +11,12 @@ public class Player extends GameObjects{
 
 	
 	public void tick() {
-		x += velX;
-		y += velY;
+		x += vel_x;
+		y += vel_y;
+		
+		x = SpaceGame.clamp(x, 0, SpaceGame.WIDTH-79);
+		
+		// clamp method is used to ensure our player does not leave the screen.
 		
 	}
 

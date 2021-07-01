@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 
 public class SpaceGame extends Canvas implements Runnable{
@@ -15,13 +16,18 @@ public class SpaceGame extends Canvas implements Runnable{
 	
 	Window window;
 	private Thread thread;
+	Random r;
+	private Health health;
 	private boolean runGame = false;
 	private Control control;
 	public SpaceGame() {
 		control = new Control();
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
+		r = new Random();
 		this.addKeyListener(new KeyInput(control, this));
-		control.addObject(new Player(400, 400, ID.Player));
+		control.addObject(new Player(450, 500, ID.Player));
+		control.addObject(new Enemy1(r.nextInt(SpaceGame.WIDTH), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy1));
+		health = new Health();
 	}
 	
 	
@@ -78,6 +84,7 @@ public class SpaceGame extends Canvas implements Runnable{
 	
 	private void tick() {
 		control.tick();
+		health.tick();
 	}
 	
 	private void render() {
@@ -93,10 +100,23 @@ public class SpaceGame extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		control.render(g);
-		
+		health.render(g);
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	public static float clamp(float var,float min, float max) {
+		if(var <= min) {
+			var = min;
+		}
+		else if(var >= max) {
+			var = max;
+		}
+		else {
+			return var;
+		}
+		return var;
 	}
 
 	

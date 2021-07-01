@@ -24,7 +24,6 @@ public class Control {
 	}
 	
 	
-	
 	public void addObject(GameObjects object) {
 		this.object.add(object);
 	}
