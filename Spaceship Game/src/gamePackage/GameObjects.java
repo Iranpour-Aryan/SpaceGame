@@ -59,4 +59,6 @@ public abstract class GameObjects {
 	public float getVelY() {
 		return this.vel_y;
 	}
+	
+
 }

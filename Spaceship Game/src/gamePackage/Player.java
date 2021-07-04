@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Player extends GameObjects{
-
-	public Player(int x, int y, ID id) {
+	private Control control;
+	public Player(int x, int y, ID id, Control control) {
 		super(x, y, id);
+		this.control = control;
 	}
 
 	
@@ -22,8 +23,9 @@ public class Player extends GameObjects{
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.fillOval((int)x, (int)y, 64, 64);
 	}
+	
 
 }

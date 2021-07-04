@@ -25,8 +25,8 @@ public class SpaceGame extends Canvas implements Runnable{
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
 		r = new Random();
 		this.addKeyListener(new KeyInput(control, this));
-		control.addObject(new Player(450, 500, ID.Player));
-		control.addObject(new Enemy1(r.nextInt(SpaceGame.WIDTH), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy1));
+		control.addObject(new Player(450, 500, ID.Player, control));
+		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 		health = new Health();
 	}
 	
