@@ -7,6 +7,12 @@ import java.util.ArrayList;
 public class Control {
 	ArrayList<GameObjects> object = new ArrayList<GameObjects>();
 	
+	SpaceGame game;
+	
+	public Control(SpaceGame game) {
+		this.game = game;
+	}
+	
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
 			GameObjects obj = object.get(i);

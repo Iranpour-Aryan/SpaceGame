@@ -17,15 +17,18 @@ public class SpaceGame extends Canvas implements Runnable{
 	Window window;
 	private Thread thread;
 	Random r;
+	private Player player;
 	private Health health;
 	private boolean runGame = false;
 	private Control control;
 	public SpaceGame() {
-		control = new Control();
+		control = new Control(this);
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
 		r = new Random();
-		this.addKeyListener(new KeyInput(control, this));
-		control.addObject(new Player(450, 500, ID.Player, control));
+		player = new Player(450, 500, ID.Player, control);
+		this.addKeyListener(new KeyInput(control, this, player));
+		control.addObject(player);
+		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 		health = new Health();
 	}
@@ -96,7 +99,7 @@ public class SpaceGame extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.green);
+		g.setColor(Color.yellow);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		control.render(g);

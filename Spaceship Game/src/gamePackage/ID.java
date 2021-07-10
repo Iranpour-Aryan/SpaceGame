@@ -3,6 +3,7 @@ package gamePackage;
 public enum ID {
 	Player(),
 	Enemy(),
-	Player_Bullets();
+	Player_Bullets(),
+	EnemyBullets();
 
 }

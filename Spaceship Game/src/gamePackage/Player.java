@@ -2,6 +2,7 @@ package gamePackage;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Player extends GameObjects{
 	private Control control;
@@ -26,6 +27,13 @@ public class Player extends GameObjects{
 		g.setColor(Color.white);
 		g.fillOval((int)x, (int)y, 64, 64);
 	}
+
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle((int)x,(int)y,64,64);
+	}
+	
 	
 
 }

@@ -6,22 +6,23 @@ import java.awt.Graphics;
 public class Health {
 	private int level = 1;
 	private int score = 0;
-	public static int health = 200;
-	private int greenBar = 300;
+	public static int health = 100;
+	private int greenBar = 255;
 	
 	
 	public void tick() {
 		health = (int) SpaceGame.clamp(health, 0, 200);
-		greenBar = (int) SpaceGame.clamp(greenBar, 0, 300);
-		greenBar = health * 3;
+		greenBar = (int) SpaceGame.clamp(greenBar, 0, 255);
+		greenBar = health * 2;
 		score+= 1;
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.gray);
 		g.fillRect(15, 15, 200, 32);
-		
-		g.setColor(Color.black);
+		g.setColor(new Color(75, greenBar, 0));
+		g.fillRect(15, 15, health * 2, 32);
+		g.setColor(Color.white);
 		g.drawRect(15, 15, 200, 32);
 		
 		g.setColor(Color.black);
