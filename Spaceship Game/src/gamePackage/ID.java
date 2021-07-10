@@ -4,6 +4,7 @@ public enum ID {
 	Player(),
 	Enemy(),
 	Player_Bullets(),
-	EnemyBullets();
+	EnemyBullets(),
+	Fruit();
 
 }

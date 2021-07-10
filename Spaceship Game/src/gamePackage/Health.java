@@ -11,7 +11,7 @@ public class Health {
 	
 	
 	public void tick() {
-		health = (int) SpaceGame.clamp(health, 0, 200);
+		health = (int) SpaceGame.clamp(health, 0, 100);
 		greenBar = (int) SpaceGame.clamp(greenBar, 0, 255);
 		greenBar = health * 2;
 		score+= 1;
@@ -19,11 +19,11 @@ public class Health {
 	
 	public void render(Graphics g) {
 		g.setColor(Color.gray);
-		g.fillRect(15, 15, 200, 32);
+		g.fillRect(15, 15, 300, 32);
 		g.setColor(new Color(75, greenBar, 0));
-		g.fillRect(15, 15, health * 2, 32);
+		g.fillRect(15, 15, health * 3, 32);
 		g.setColor(Color.white);
-		g.drawRect(15, 15, 200, 32);
+		g.drawRect(15, 15, 300, 32);
 		
 		g.setColor(Color.black);
 		g.drawRect(400, 15, 100, 30);

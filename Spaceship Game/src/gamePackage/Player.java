@@ -19,7 +19,7 @@ public class Player extends GameObjects{
 		x = SpaceGame.clamp(x, 0, SpaceGame.WIDTH-79);
 		
 		// clamp method is used to ensure our player does not leave the screen.
-		
+		collision();
 	}
 
 	
@@ -32,6 +32,17 @@ public class Player extends GameObjects{
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,64,64);
+	}
+	
+	public void collision() {
+		for(int i= 0; i < control.object.size(); i++) {
+			GameObjects gameObj = this.control.object.get(i);
+			if(gameObj.getID() == ID.EnemyBullets) {
+				if(getBounds().intersects(gameObj.getBounds())) {
+					Health.health --;
+				}
+			}
+		}
 	}
 	
 	
