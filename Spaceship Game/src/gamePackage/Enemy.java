@@ -51,7 +51,7 @@ public class Enemy extends GameObjects{
 			this.vel_x *= -1;
 		}
 		
-		int spawn = r.nextInt(20);
+		int spawn = r.nextInt(50);
 		if(spawn == 1) {
 			control.addObject(new EnemyBullets((int) x+48,(int) y+48, ID.EnemyBullets, control));
 		}

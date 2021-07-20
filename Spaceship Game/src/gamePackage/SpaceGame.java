@@ -21,6 +21,8 @@ public class SpaceGame extends Canvas implements Runnable{
 	private Health health;
 	private boolean runGame = false;
 	private Control control;
+	
+	private ObjectSpawner spawn;
 	public SpaceGame() {
 		control = new Control(this);
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
@@ -32,6 +34,8 @@ public class SpaceGame extends Canvas implements Runnable{
 		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 		control.addObject(new Fruit(r.nextInt(SpaceGame.WIDTH -30),510, ID.Fruit, control));
 		health = new Health();
+		
+		spawn = new ObjectSpawner(control, health, this);
 	}
 	
 	
@@ -89,6 +93,7 @@ public class SpaceGame extends Canvas implements Runnable{
 	private void tick() {
 		control.tick();
 		health.tick();
+		spawn.tick();
 	}
 	
 	private void render() {
