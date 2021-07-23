@@ -38,9 +38,9 @@ public class Fruit extends GameObjects{
 		for(int i= 0; i < control.object.size(); i++) {
 			GameObjects gameObj = this.control.object.get(i);
 			if(gameObj.getID() == ID.Player) {
-				if(Health.health <= 250) {
+				if(Player_Analysis.health <= 250) {
 					if(getBounds().intersects(gameObj.getBounds())) {
-						Health.health += 5;
+						Player_Analysis.health += 5;
 						control.removeObject(this);
 					}
 				}

@@ -6,13 +6,13 @@ import java.util.Random;
 public class ObjectSpawner {
 	
 	private Control control;
-	private Health health;
+	private Player_Analysis health;
 	private SpaceGame game;
 	Random r;
 	
 	private int score;
 	
-	public ObjectSpawner(Control control, Health health, SpaceGame game) {
+	public ObjectSpawner(Control control, Player_Analysis health, SpaceGame game) {
 		this.control = control;
 		this.health = health;
 		this.game = game;

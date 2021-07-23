@@ -39,7 +39,7 @@ public class Player extends GameObjects{
 			GameObjects gameObj = this.control.object.get(i);
 			if(gameObj.getID() == ID.EnemyBullets) {
 				if(getBounds().intersects(gameObj.getBounds())) {
-					Health.health --;
+					Player_Analysis.health --;
 				}
 			}
 		}

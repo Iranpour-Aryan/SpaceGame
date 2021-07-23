@@ -18,22 +18,40 @@ public class SpaceGame extends Canvas implements Runnable{
 	private Thread thread;
 	Random r;
 	private Player player;
-	private Health health;
+	private Player_Analysis health;
 	private boolean runGame = false;
 	private Control control;
+	private Menu menu;
 	
 	private ObjectSpawner spawn;
+	
+	public enum State{
+		Menu,
+		Game,
+		Help,
+		End
+	}
+	
+	public static State gameState = State.Menu;
+	
+	
 	public SpaceGame() {
 		control = new Control(this);
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
 		r = new Random();
 		player = new Player(450, 500, ID.Player, control);
-		this.addKeyListener(new KeyInput(control, this, player));
 		control.addObject(player);
-		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
-		control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
-		control.addObject(new Fruit(r.nextInt(SpaceGame.WIDTH -30),510, ID.Fruit, control));
-		health = new Health();
+		this.addKeyListener(new KeyInput(control, this, player));
+		menu = new Menu(this, control, health);
+		this.addMouseListener(menu);
+		
+		if(gameState == State.Game) {
+			control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
+			control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
+			control.addObject(new Fruit(r.nextInt(SpaceGame.WIDTH -30),510, ID.Fruit, control));
+		}
+		
+		health = new Player_Analysis();
 		
 		spawn = new ObjectSpawner(control, health, this);
 	}
@@ -92,8 +110,11 @@ public class SpaceGame extends Canvas implements Runnable{
 	
 	private void tick() {
 		control.tick();
-		health.tick();
-		spawn.tick();
+		if(gameState == State.Game) {
+			health.tick();
+			spawn.tick();
+		}
+		
 	}
 	
 	private void render() {
@@ -109,7 +130,14 @@ public class SpaceGame extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		control.render(g);
-		health.render(g);
+		
+		if(gameState == State.Game) {
+			health.render(g);
+		}
+		
+		else if(gameState == State.Menu){
+			menu.render(g);
+		}
 		
 		g.dispose();
 		bs.show();
