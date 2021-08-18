@@ -40,7 +40,7 @@ public class Fruit extends GameObjects{
 			if(gameObj.getID() == ID.Player) {
 				if(Player_Analysis.health <= 250) {
 					if(getBounds().intersects(gameObj.getBounds())) {
-						Player_Analysis.health += 5;
+						Player_Analysis.health += 20;
 						control.removeObject(this);
 					}
 				}

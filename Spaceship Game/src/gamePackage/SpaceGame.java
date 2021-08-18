@@ -18,11 +18,11 @@ public class SpaceGame extends Canvas implements Runnable{
 	private Thread thread;
 	Random r;
 	private Player player;
-	private Player_Analysis health;
+	private Player_Analysis pA;
 	private boolean runGame = false;
 	private Control control;
 	private Menu menu;
-	
+	public static boolean paused = false;
 	private ObjectSpawner spawn;
 	
 	public enum State{
@@ -37,23 +37,22 @@ public class SpaceGame extends Canvas implements Runnable{
 	
 	public SpaceGame() {
 		control = new Control(this);
+		pA = new Player_Analysis();
 		window = new Window(WIDTH, HEIGHT, "Lets create a Space game!", this);
 		r = new Random();
 		player = new Player(450, 500, ID.Player, control);
-		control.addObject(player);
 		this.addKeyListener(new KeyInput(control, this, player));
-		menu = new Menu(this, control, health);
+		menu = new Menu(this, control, pA, player);
 		this.addMouseListener(menu);
 		
 		if(gameState == State.Game) {
+			control.addObject(player);
 			control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 			control.addObject(new Enemy(r.nextInt(SpaceGame.WIDTH -40), r.nextInt(SpaceGame.HEIGHT-750), ID.Enemy, control));
 			control.addObject(new Fruit(r.nextInt(SpaceGame.WIDTH -30),510, ID.Fruit, control));
 		}
-		
-		health = new Player_Analysis();
-		
-		spawn = new ObjectSpawner(control, health, this);
+				
+		spawn = new ObjectSpawner(control, pA, this);
 	}
 	
 	
@@ -109,10 +108,17 @@ public class SpaceGame extends Canvas implements Runnable{
 	
 	
 	private void tick() {
-		control.tick();
 		if(gameState == State.Game) {
-			health.tick();
-			spawn.tick();
+			if (!paused){
+				pA.tick();
+				control.tick();
+				spawn.tick();
+				if(pA.health <= 0) {
+					pA.health = 100;
+					gameState = State.End;
+					control.clearEnemy();
+				}
+			}
 		}
 		
 	}
@@ -132,11 +138,16 @@ public class SpaceGame extends Canvas implements Runnable{
 		control.render(g);
 		
 		if(gameState == State.Game) {
-			health.render(g);
+			pA.render(g);
 		}
 		
-		else if(gameState == State.Menu){
+		else if(gameState == State.Menu || gameState == State.Help || gameState == State.End){
 			menu.render(g);
+		}
+		
+		if(paused) {
+			g.setColor(Color.black);
+			g.drawString("PAUSED", 400, 300);
 		}
 		
 		g.dispose();

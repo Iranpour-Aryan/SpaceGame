@@ -3,6 +3,8 @@ package gamePackage;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import gamePackage.SpaceGame.State;
+
 public class KeyInput extends KeyAdapter{
 	
 	private Control control;
@@ -44,6 +46,17 @@ public class KeyInput extends KeyAdapter{
 		if(key == KeyEvent.VK_SPACE) {
 			control.addObject(new Player_Bullets((int) player.getX() + 20, (int) player.getY() + 20, ID.Player_Bullets, control));
 			keyDown[2] = true;
+		}
+		
+		if(key == KeyEvent.VK_P) {
+			if(game.gameState == State.Game) {
+				if(SpaceGame.paused) {
+					SpaceGame.paused = false;
+				}
+				else {
+					SpaceGame.paused = true;
+				}
+			}
 		}
 		
 		

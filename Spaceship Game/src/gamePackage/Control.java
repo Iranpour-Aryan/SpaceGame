@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
+
 public class Control {
 	ArrayList<GameObjects> object = new ArrayList<GameObjects>();
 	
@@ -26,6 +27,26 @@ public class Control {
 			GameObjects obj = object.get(i);
 			
 			obj.render(g);
+		}
+	}
+	
+	public void clearEnemy() {
+		for(int i = 0; i < object.size(); i++) {
+			GameObjects tempObject = object.get(i);
+			
+			if(tempObject.getID() != ID.Player) {
+				object.clear();
+			}
+		}
+	}
+	
+	public void clearPlayer() {
+		for(int i = 0; i < object.size(); i++) {
+			GameObjects tempObject = object.get(i);
+			
+			if(tempObject.getID() == ID.Player) {
+				object.clear();
+			}
 		}
 	}
 	

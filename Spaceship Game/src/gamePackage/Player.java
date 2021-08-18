@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Player extends GameObjects{
+public class Player extends GameObjects {
 	private Control control;
+	
 	public Player(int x, int y, ID id, Control control) {
 		super(x, y, id);
 		this.control = control;
 	}
-
+	
 	
 	public void tick() {
 		x += vel_x;
